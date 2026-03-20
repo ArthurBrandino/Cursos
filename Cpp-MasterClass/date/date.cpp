@@ -1,4 +1,5 @@
 #include "date.h"
+#include <iostream>
 
 void Date::change(short day, short month, short year)
 {
@@ -13,7 +14,15 @@ void Date::change(short day, short month, short year)
 
 void Date::print()const
 {
-    (m_valid) ? printf("%02d/%02d/%d\n", m_day, m_month, m_year) : printf("Invalid date!\n");
+    if (m_valid) {
+        std::cout.fill('0');
+        std::cout.width(2);
+        std::cout << m_day << '/';
+        std::cout.width(2);
+        std::cout << m_month << '/' << m_year << std::endl;
+    } 
+    else 
+        std::cout << "Invalid date!\n";
 }
 
 short Date::lastDayOfMonth()const

@@ -1,7 +1,8 @@
 #ifndef DATE_H
 #define DATE_H
 
-#include <stdio.h>
+#include <compare>
+
 
 class Date
 {
@@ -42,6 +43,15 @@ class Date
         {
             return m_year;
         }
+
+        bool operator==(const Date &other) const = default;
+
+        auto operator<=>(const Date &other) const {
+            if(const auto cmp = m_year <=> other.m_year; cmp != 0) return cmp;
+            if(const auto cmp = m_month <=> other.m_month; cmp != 0) return cmp;
+            return m_day <=> other.m_day;
+        }
+
 
     private:
         short m_day;

@@ -2,7 +2,7 @@
 #define DATE_H
 
 #include <compare>
-
+#include <print>
 
 class Date
 {
@@ -16,7 +16,6 @@ class Date
             change(day, month, year);
         }
 
-        void change(short day, short month, short year);
 
         void validate()
         {
@@ -25,9 +24,38 @@ class Date
                         (m_year >= YEAR_MIN && m_year <= YEAR_MAX));
         }
 
-        void print()const;
-        short lastDayOfMonth() const;
-        bool isLeapYear() const;
+        void change(short day, short month, short year)
+        {
+            m_day = day;
+            m_month = month;
+            m_year = year;
+
+            validate();
+        }
+
+
+
+        void print()const
+        {
+            if (m_valid) 
+                std::println("{:02}/{:02}/{}", m_day, m_month, m_year);
+            else 
+                std::println("Invalid date!");
+        }
+
+        short lastDayOfMonth()const
+        {
+            if(m_month > JULY)          return (m_month % 2 == 0) ? 31 : 30;
+            if(m_month != FEBRUARY)     return (m_month % 2 == 0) ? 30 : 31;
+            
+            return (isLeapYear()) ? 29 : 28;
+        }
+
+        bool isLeapYear()const
+        {
+            return (!(m_year % 4) && (m_year % 100)) || !(m_year % 400 );  
+        }
+
 
         short day()const
         {

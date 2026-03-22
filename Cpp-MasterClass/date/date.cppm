@@ -1,6 +1,6 @@
 #ifndef DATE_H
 #define DATE_H
-
+#include <cstdint>
 #include <compare>
 #include <print>
 
@@ -11,7 +11,7 @@ class Date
         enum{ FEBRUARY = 2, JULY = 7};
 
         Date() = default;
-        Date(short day, short month, short year)
+        Date(uint8_t day, uint8_t month, uint16_t year)
         {
             change(day, month, year);
         }
@@ -24,7 +24,7 @@ class Date
                         (m_year >= YEAR_MIN && m_year <= YEAR_MAX));
         }
 
-        void change(short day, short month, short year)
+        void change(uint8_t day, uint8_t month, uint16_t year)
         {
             m_day = day;
             m_month = month;
@@ -43,7 +43,7 @@ class Date
                 std::println("Invalid date!");
         }
 
-        short lastDayOfMonth()const
+        uint8_t lastDayOfMonth()const
         {
             if(m_month > JULY)          return (m_month % 2 == 0) ? 31 : 30;
             if(m_month != FEBRUARY)     return (m_month % 2 == 0) ? 30 : 31;
@@ -57,17 +57,17 @@ class Date
         }
 
 
-        short day()const
+        uint8_t day()const
         {
             return m_day;
         }
 
-        short month()const
+        uint8_t month()const
         {
             return m_month;
         }
 
-        short year()const
+        uint16_t year()const
         {
             return m_year;
         }
@@ -82,10 +82,10 @@ class Date
 
 
     private:
-        short m_day;
-        short m_month;
-        short m_year;
-        bool m_valid {false};
+        bool m_valid : 1 {false};
+        uint8_t m_day;
+        uint8_t m_month;
+        uint16_t m_year;
 };
 
 #endif

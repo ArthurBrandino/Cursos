@@ -1,14 +1,9 @@
 #include <stdarg.h>
 #include <iostream>
 
-template<typename T>
-auto accumulate(T value){
-    return value;
-}
-
-template<typename T, typename... Args>
-auto accumulate(T first, Args... args){
-    return first + accumulate(args...);
+template<typename... Args>
+auto accumulate(Args... args){
+    return (args + ...);
 }
 
 int main()
